@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>aspnet-Testudines_Data_Identity_WebMiicroting-3fdae0ae-bfa1-4c97-af3e-b538a159cc19</UserSecretsId>
+		<BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.15" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.15" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.15" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.15" />
+		<PackageReference Include="Microting.EntityFrameworkCore.MySql" Version="10.0.14" />
+	</ItemGroup>
+
+</Project>
