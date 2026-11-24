@@ -7,6 +7,8 @@
 This guide explains how to create a Blazor Web App that uses ASP.NET Core Identity with a MySQL or MariaDB database through the Microting Entity Framework Core provider. It covers database setup, migrations, development test accounts, and role-based authorization.
 
 > **Version compatibility:** The example versions below follow the project details provided for this guide. Before installing them, confirm that the selected `Microting.EntityFrameworkCore.MySql` version supports .NET 10 and the EF Core version you choose. Keep `Microsoft.EntityFrameworkCore`, `.Design`, `.Tools`, `Microsoft.AspNetCore.Identity.EntityFrameworkCore`, and `dotnet-ef` on compatible versions. The .NET SDK version is independent of the EF Core package version.
+>
+> Annexed there is the Net soluction`*[IdetityNet10MySql.slnx](/src)*' ,  they have testing pages  for users, roles, ...
 
 ## 1. Requirements
 
@@ -253,6 +255,30 @@ if any error
 * check sql server is available
 
 The database should now contain standard Identity tables such as `AspNetUsers`, `AspNetRoles`, `AspNetUserRoles`, and `AspNetUserClaims`. Confirm migration success in the application output and database.
+
+**6.3 Verify Database Creation (optional)**
+
+In Linux console, After running `PM> Update-Database`, verify that the database and ASP.NET Core Identity tables were created in MariaDB:
+
+```bash
+mariadb -u root -p -e "
+SELECT 
+    IF(EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'YourDatabaseName'), 'YES', 'NO') AS DbExists,
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'YourDatabaseName' AND TABLE_NAME LIKE 'AspNet%') AS IdentityTables,
+    IF(EXISTS (SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'YourDatabaseName' AND TABLE_NAME = '__EFMigrationsHistory'), 'YES', 'NO') AS MigrationsApplied;
+"
+```
+
+**Expected Output:**
+```text
++----------+----------------+-------------------+
+
+| DbExists | IdentityTables | MigrationsApplied |
++----------+----------------+-------------------+
+
+| YES      |              7 | YES               |
++----------+----------------+-------------------+
+```
 
 ## 7. Seed development test roles and users
 

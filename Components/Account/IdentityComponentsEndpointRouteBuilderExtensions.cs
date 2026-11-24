@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using System.Security.Claims;
 using System.Text.Json;
-using Testudines.Data.Identity.WebMiicroting.Components.Account.Pages;
-using Testudines.Data.Identity.WebMiicroting.Components.Account.Pages.Manage;
-using Testudines.Data.Identity.WebMiicroting.Data;
+using IdetityNet10MySql.Components.Account.Pages;
+using IdetityNet10MySql.Components.Account.Pages.Manage;
+using IdetityNet10MySql;
 
 namespace Microsoft.AspNetCore.Routing
 {

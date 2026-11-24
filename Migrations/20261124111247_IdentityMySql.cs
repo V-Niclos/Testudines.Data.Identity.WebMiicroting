@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Testudines.Data.Identity.WebMiicroting.Migrations
+namespace IdetityNet10MySql.Migrations
 {
     /// <inheritdoc />
     public partial class IdentityMySql : Migration

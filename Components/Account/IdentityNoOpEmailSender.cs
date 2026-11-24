@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Testudines.Data.Identity.WebMiicroting.Data;
+using IdetityNet10MySql;
 
-namespace Testudines.Data.Identity.WebMiicroting.Components.Account
+namespace IdetityNet10MySql.Components.Account
 {
     // Remove the "else if (EmailSender is IdentityNoOpEmailSender)" block from RegisterConfirmation.razor after updating with a real implementation.
     internal sealed class IdentityNoOpEmailSender : IEmailSender<ApplicationUser>

@@ -1,4 +1,4 @@
-namespace Testudines.Data.Identity.WebMiicroting.Components.Account
+namespace IdetityNet10MySql.Components.Account
 {
     public class PasskeyInputModel
     {

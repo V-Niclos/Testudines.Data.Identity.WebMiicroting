@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
-using Testudines.Data.Identity.WebMiicroting.Data;
+using IdetityNet10MySql;
 
-namespace Testudines.Data.Identity.WebMiicroting.Components.Account
+namespace IdetityNet10MySql.Components.Account
 {
     // This is a server-side AuthenticationStateProvider that revalidates the security stamp for the connected user
     // every 30 minutes an interactive circuit is connected.

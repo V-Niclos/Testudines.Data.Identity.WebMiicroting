@@ -1,0 +1,84 @@
+﻿@page "/test/role-tester"
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject AuthenticationStateProvider AuthStateProvider
+@inject IWebHostEnvironment Env
+
+<h3>Panel de Testeo de Roles (.NET 10)</h3>
+
+@if (!Env.IsDevelopment())
+{
+    <div class="alert alert-danger">Esta página solo está disponible en entorno de desarrollo.</div>
+    return;
+}
+
+<AuthorizeView>
+    <Authorized>
+        <p><strong>Usuario actual:</strong> @context.User.Identity?.Name</p>
+        
+        <h5>Roles asignados actualmente:</h5>
+        <ul>
+            @foreach (var role in currentRoles)
+            {
+                <li>@role <button class="btn btn-sm btn-outline-danger" @onclick="() => ToggleRole(role, false)">Quitar</button></li>
+            }
+        </ul>
+
+        <h5>Asignar rol de prueba:</h5>
+        <div class="btn-group">
+            @foreach (var role in availableRoles)
+            {
+                <button class="btn btn-primary me-2" @onclick="() => ToggleRole(role, true)">+ @role</button>
+            }
+        </div>
+
+        <h5 class="mt-4">Claims activos en el token/cookie:</h5>
+        <ul>
+            @foreach (var claim in context.User.Claims)
+            {
+                <li><code>@claim.Type</code>: @claim.Value</li>
+            }
+        </ul>
+    </Authorized>
+    <NotAuthorized>
+        <p>No has iniciado sesión. Inicia sesión para testear roles.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private List<string> availableRoles = ["Admin", "Editor", "User"];
+    private IList<string> currentRoles = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUserRoles();
+    }
+
+    private async Task LoadUserRoles()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = await UserManager.GetUserAsync(authState.User);
+        if (user is not null)
+        {
+            currentRoles = await UserManager.GetRolesAsync(user);
+        }
+    }
+
+    private async Task ToggleRole(string role, bool add)
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = await UserManager.GetUserAsync(authState.User);
+        if (user is null) return;
+
+        if (add && !await UserManager.IsInRoleAsync(user, role))
+            await UserManager.AddToRoleAsync(user, role);
+        else if (!add && await UserManager.IsInRoleAsync(user, role))
+            await UserManager.RemoveFromRoleAsync(user, role);
+
+        // Refresca la cookie de autenticación para aplicar los nuevos claims inmediatamente
+        await SignInManager.RefreshSignInAsync(user);
+        await LoadUserRoles();
+    }
+}

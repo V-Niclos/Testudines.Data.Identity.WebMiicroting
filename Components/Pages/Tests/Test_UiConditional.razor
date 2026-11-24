@@ -1,0 +1,15 @@
+﻿
+@page "/test/ui-conditional"
+
+<h4>Ui condicional</h4>
+<p> Todos los usuarios: fragmetos de componente defendiendo del roll</p>
+
+<AuthorizeView Roles="admin">
+    <Authorized><button class="btn btn-danger">Borrar base de datos (Solo Admin)</button></Authorized>
+    <NotAuthorized><span class="text-muted">Botón oculto para tu rol actual</span></NotAuthorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="editor">
+    <Authorized><button class="btn btn-danger">Borrar base de datos (Solo Admin)</button></Authorized>
+    <NotAuthorized><span class="text-muted">Botón oculto para tu rol actual</span></NotAuthorized>
+</AuthorizeView>

@@ -1,0 +1,4 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@page "/test/admin"
+@attribute [Authorize(Roles = "Admin")]
+<h4>Acceso concedido: Zona exclusiva de Administrador</h4>
